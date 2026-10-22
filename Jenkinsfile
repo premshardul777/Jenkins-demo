@@ -1,10 +1,13 @@
 pipeline {
   agent any
   stages { 
-    stage('Build') { steps { echo 'Building the project' } }
-    stage('Test')  { steps { echo 'Running tests' } }
+    stage('Checkout') { steps { checkout scm } }
+    stage('Build')    { steps { bat 'build.bat' } }
+    stage('Test')     { steps { bat 'test.bat' } }
+    stage('Package')  { steps { bat 'package.bat' } }
   }    
   post {
-    success { echo 'pipeline succeeded'  }
+    success { archiveArtifacts arctifacts: 'dist/**', fingerprint: true  }
+    failure { echo 'Cl pipeline failed' }
   }
 }
