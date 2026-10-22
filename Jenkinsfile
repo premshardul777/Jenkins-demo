@@ -7,7 +7,7 @@ pipeline {
     stage('Package')  { steps { bat 'package.bat' } }
   }    
   post {
-    success { archiveArtifacts arctifacts: 'dist/**', fingerprint: true  }
+    success { archiveArtifacts artifacts: 'dist/**', fingerprint: true }
     failure { echo 'Cl pipeline failed' }
   }
 }
