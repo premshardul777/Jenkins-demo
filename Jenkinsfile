@@ -4,7 +4,7 @@ pipeline {
                         choices: ['dev', 'staging', 'production']) }
     stages {
       stage ('Approve') {
-        when { expression { params.ENVIRONMENT = 'production' } }
+        when { expression { params.ENVIRONMENT == 'production' } }
         steps { input message: 'Deploy to production?' }
     }
     stage ('Deploy') {
